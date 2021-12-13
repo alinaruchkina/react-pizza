@@ -1,27 +1,28 @@
+import { isTSMethodSignature } from '@babel/types';
 import React from 'react';
 
 function SortPopup() {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
+  const [activeItem, setActiveItem] = React.useState(0);
   const sortRef = React.useRef();
-
-  console.log(useRef.current);
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
   };
 
   const handleOutsideClick = (e) => {
-    console.log(e);
+    if (!e.path.includes(sortRef.current)) {
+      setVisiblePopup(false);
+      console.log('outside');
+    }
   };
 
   React.useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
-    const sort = document.querySelector('.sort');
-    console.log(sort);
   }, []);
 
   return (
-    <div ref={(elem) => console.log(ref)} className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -40,6 +41,15 @@ function SortPopup() {
       {visiblePopup && (
         <div className="sort__popup">
           <ul>
+            {item &&
+              items.map((name, index) => (
+                <li
+                  onClick={() => onSelectItem(index)}
+                  className={activeItem == index ? 'active' : ''}
+                  key={`${name}_${index}`}>
+                  {name}
+                </li>
+              ))}
             <li className="active">популярности</li>
             <li>цене</li>
             <li>алфавиту</li>
