@@ -38,6 +38,7 @@ function Categories({ items, onClickItem }) {
   const onSelectItem = (index) => {
     setActiveItem(index);
   };
+
   return (
     <div className="categories">
       <ul>

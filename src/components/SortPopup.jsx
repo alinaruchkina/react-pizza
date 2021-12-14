@@ -1,10 +1,11 @@
 import { isTSMethodSignature } from '@babel/types';
 import React from 'react';
 
-function SortPopup() {
+function SortPopup({ items }) {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(0);
   const sortRef = React.useRef();
+  const activeLabel = items[activeItem];
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
@@ -17,6 +18,11 @@ function SortPopup() {
     }
   };
 
+  const onSelectItem = (index) => {
+    setActiveItem(index);
+    setVisiblePopup(false);
+  };
+
   React.useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
   }, []);
@@ -25,6 +31,7 @@ function SortPopup() {
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
+          className={visiblePopup ? 'rotated' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -36,23 +43,20 @@ function SortPopup() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={toggleVisiblePopup}>популярности</span>
+        <span onClick={toggleVisiblePopup}>{activeLabel}</span>
       </div>
       {visiblePopup && (
         <div className="sort__popup">
           <ul>
-            {item &&
+            {items &&
               items.map((name, index) => (
                 <li
                   onClick={() => onSelectItem(index)}
-                  className={activeItem == index ? 'active' : ''}
+                  className={activeItem === index ? 'active' : ''}
                   key={`${name}_${index}`}>
                   {name}
                 </li>
               ))}
-            <li className="active">популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li>
           </ul>
         </div>
       )}
