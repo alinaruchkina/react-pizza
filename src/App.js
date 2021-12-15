@@ -16,6 +16,7 @@ function App() {
         setPizzas(json.pizzas);
       });
   }, []);
+  console.log(pizzas);
   return (
     <div className="wrapper">
       <Header />
