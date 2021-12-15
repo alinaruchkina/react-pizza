@@ -23,7 +23,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/cart" component={Cart} exact />
-          <Route path="/" component={Home} exact />
+          <Route path="/" render={() => <Home items={pizzas} />} exact />
         </Routes>
       </div>
     </div>
