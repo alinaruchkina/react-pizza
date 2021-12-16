@@ -1,4 +1,3 @@
-import { isTSMethodSignature } from '@babel/types';
 import React from 'react';
 
 function SortPopup({ items }) {

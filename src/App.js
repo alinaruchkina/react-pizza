@@ -4,7 +4,7 @@ import './App.scss';
 
 import { Header } from './components';
 import { Home, Cart } from './pages';
-import { Route, Routes } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 function App() {
   const [pizzas, setPizzas] = React.useState([]);
@@ -16,15 +16,13 @@ function App() {
         setPizzas(json.pizzas);
       });
   }, []);
-  console.log(pizzas);
+
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <Routes>
-          <Route path="/cart" component={Cart} exact />
-          <Route path="/" render={() => <Home items={pizzas} />} exact />
-        </Routes>
+        <Route path="/cart" component={Cart} exact />
+        <Route path="/" render={() => <Home items={pizzas} />} exact />
       </div>
     </div>
   );
