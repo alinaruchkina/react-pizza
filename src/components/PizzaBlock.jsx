@@ -41,7 +41,7 @@ function PizzaBlock({ name, imageUrl, price, types, sizes }) {
                 active: activeSize === index,
                 disabled: !sizes.includes(size),
               })}>
-              {size}
+              {size} см.
             </li>
           ))}
         </ul>
